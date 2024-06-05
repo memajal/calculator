@@ -7,6 +7,7 @@ let secondOperand="";
 let step=0;
 let operator;
 
+
 function getFirstOperand() {
       numberButtons.forEach(button => {
       button.addEventListener('click' , () =>{
@@ -26,11 +27,12 @@ function getFirstOperand() {
         })
        });
     }
+    
 
     function operation() {
         operatorButtons.forEach(button => {
             button.addEventListener('click' , () =>{
-                operator=button.textContent;
+                operator=button.value;
                 step=2;
                 console.log(operator);
                 console.log(step)   ;
@@ -38,6 +40,38 @@ function getFirstOperand() {
         });
     }
 
+    /*  Equal button click */
+    function getResult(){
+        equals.addEventListener("click", () => {
+            if (operator=="+") {
+              result=Number(firstOperand)+Number(secondOperand);
+              console.log(result);
+              display.value=result;
+            } 
+            if (operator=="-")   {
+              result=Number(firstOperand)-Number(secondOperand);
+              console.log(result);
+              display.value=result;
+            }
+            if (operator=="*")   {
+                result=Number(firstOperand)*Number(secondOperand);
+                console.log(result);
+                display.value=result;
+            }
+            if (operator=="/")   {
+                if(secondOperand="0"){
+                    result="infinit";
+                    display.value="infinit";
+                }
+                else{
+                result=Number(firstOperand)/Number(secondOperand);
+                console.log(result);
+                display.value=result;}
+            }
+          })
+      }
+
 getFirstOperand();
 operation();
+getResult();
 
