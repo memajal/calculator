@@ -1,5 +1,6 @@
 const numberButtons=document.querySelectorAll(".number");
 const operatorButtons=document.querySelectorAll(".operator");
+const clearButton=document.querySelector(".clear");
 let display=document.querySelector("#display");
 
 let firstOperand="";
@@ -71,7 +72,21 @@ function getFirstOperand() {
           })
       }
 
+    function clearResult(){
+
+        clearButton.addEventListener("click", () => {
+            step=0;
+            result=0;
+            display.value=0;
+            firstOperand="";
+            secondOperand="";
+
+        });
+    }
+
+
 getFirstOperand();
 operation();
 getResult();
+clearResult();
 
