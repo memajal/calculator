@@ -2,6 +2,7 @@ const numberButtons=document.querySelectorAll(".number");
 const operatorButtons=document.querySelectorAll(".operator");
 const clearButton=document.querySelector(".clear");
 let display=document.querySelector("#display");
+let equals=document.querySelector("#equals");
 
 let firstOperand="";
 let secondOperand="";
@@ -33,17 +34,27 @@ function getFirstOperand() {
     function operation() {
         operatorButtons.forEach(button => {
             button.addEventListener('click' , () =>{
-                operator=button.value;
+                if(firstOperand.length!=0 && secondOperand.length!=0) {
+                    getResult();
+                    firstOperand=result;
+                    secondOperand="";
+                    operator=button.value;
+                    console.log(operator);
+                    console.log(step);    
+                }
+                else {operator=button.value;
                 step=2;
                 console.log(operator);
                 console.log(step)   ;
+                }
             });
         });
     }
 
+    
+
     /*  Equal button click */
     function getResult(){
-        equals.addEventListener("click", () => {
             if (operator=="+") {
               result=Number(firstOperand)+Number(secondOperand);
               console.log(result);
@@ -60,16 +71,16 @@ function getFirstOperand() {
                 display.value=result;
             }
             if (operator=="/")   {
-                if(secondOperand="0"){
-                    result="infinit";
-                    display.value="infinit";
+                if(secondOperand=="0"){
+                    display.value="NAN";
+                    clearResult();
                 }
+                
                 else{
                 result=Number(firstOperand)/Number(secondOperand);
                 console.log(result);
                 display.value=result;}
             }
-          })
       }
 
     function clearResult(){
@@ -84,9 +95,10 @@ function getFirstOperand() {
         });
     }
 
+    equals.addEventListener("click", getResult);
+
 
 getFirstOperand();
 operation();
-getResult();
 clearResult();
 
