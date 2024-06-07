@@ -69,51 +69,29 @@ function getFirstOperand() {
              display.value=result;    
           }
 
-          else if(step==2 && secondOperand!=""){
+        else if(step==2 && secondOperand!=""){
             if (operator=="+") {
-              result=Number(firstOperand)+Number(secondOperand);
-              console.log(result);
-              display.value=result;
+              sum(firstOperand, secondOperand);
             } 
+
             if (operator=="-")   {
-              result=Number(firstOperand)-Number(secondOperand);
-              console.log(result);
-              display.value=result;
+                deduction(firstOperand, secondOperand);
             }
+
             if (operator=="*")   {
-                result=Number(firstOperand)*Number(secondOperand);
-                console.log(result);
-                display.value=result;
+                product(firstOperand, secondOperand);
             }
             
-            if (operator=="/")  {
-                if(secondOperand=="0"){
-                    window.alert("You can not divide by 0. The result is infinit. Try diffrent numbers");
-                    clearResult();
-                }
-
-                else{
-                    result=Number(firstOperand)/Number(secondOperand);
-                    console.log(result);
-                    display.value=result;
-                }
+            if (operator==="/")  {
+                division(firstOperand, secondOperand);
             }
-
+            
             if (operator=="%"){
-                if(secondOperand=="0"){
-                    window.alert("You can not find percentage by 0. The result is infinit. Try diffrent numbers");
-                    clearResult();
-                }
-
-                else{
-                    result=(Number(firstOperand)/Number(secondOperand))*100;
-                    console.log(result);
-                    display.value=result;
-                }
+                percentage(firstOperand, secondOperand);
             }
         }
             
-      }
+    }
 
     function clearResult(){
             step=0;
@@ -122,6 +100,45 @@ function getFirstOperand() {
             firstOperand="";
             secondOperand="";
             operator=null;
+    }
+
+    function sum(value1, value2){
+        result=Number(value1)+Number(value2);
+        display.value=result;
+    }
+
+    function deduction(value1,value2){
+          result=Number(value1)-Number(value2);
+          display.value=result;
+    }
+
+    function product(value1,value2){
+        result=Number(value1)*Number(value2);
+        display.value=result;
+    }
+
+    function division(value1,value2){
+        if(value2==="0"){
+            window.alert("You can not divide by 0. The result is infinit. Try diffrent numbers");
+            clearResult();
+        }
+
+        else{
+            result=Number(value1)/ Number(value2);
+            display.value=result;
+        }
+    }
+
+    function percentage(value1, value2){
+        if(value2=="0"){
+            window.alert("You can not find percentage by 0. The result is infinit. Try diffrent numbers");
+            clearResult();
+        }
+
+        else{
+            result=(Number(value1)/Number(value2))*100;
+            display.value=result;
+        }
     }
 
     equals.addEventListener("click", getResult);
