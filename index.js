@@ -3,7 +3,6 @@ const operatorButtons=document.querySelectorAll(".operator");
 const clearButton=document.querySelector(".clear");
 let display=document.querySelector("#display");
 let equals=document.querySelector("#equals");
-let errorMessage= document.querySelector("#error_message");
 
 
 
@@ -63,9 +62,14 @@ function getFirstOperand() {
     }
 
     
-
     /*  Equal button click */
     function getResult(){
+          if(step==2 && secondOperand=="") {
+             result=Number(firstOperand);
+             display.value=result;    
+          }
+
+          else if(step==2 && secondOperand!=""){
             if (operator=="+") {
               result=Number(firstOperand)+Number(secondOperand);
               console.log(result);
@@ -82,18 +86,33 @@ function getFirstOperand() {
                 display.value=result;
             }
             
-            if (operator=="/")   {
+            if (operator=="/")  {
                 if(secondOperand=="0"){
                     window.alert("You can not divide by 0. The result is infinit. Try diffrent numbers");
                     clearResult();
                 }
 
                 else{
-                result=Number(firstOperand)/Number(secondOperand);
-                step=2;
-                console.log(result);
-                display.value=result;}
+                    result=Number(firstOperand)/Number(secondOperand);
+                    console.log(result);
+                    display.value=result;
+                }
             }
+
+            if (operator=="%"){
+                if(secondOperand=="0"){
+                    window.alert("You can not find percentage by 0. The result is infinit. Try diffrent numbers");
+                    clearResult();
+                }
+
+                else{
+                    result=(Number(firstOperand)/Number(secondOperand))*100;
+                    console.log(result);
+                    display.value=result;
+                }
+            }
+        }
+            
       }
 
     function clearResult(){
