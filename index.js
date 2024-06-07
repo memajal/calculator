@@ -3,11 +3,15 @@ const operatorButtons=document.querySelectorAll(".operator");
 const clearButton=document.querySelector(".clear");
 let display=document.querySelector("#display");
 let equals=document.querySelector("#equals");
+let errorMessage= document.querySelector("#error_message");
+
+
 
 let firstOperand="";
 let secondOperand="";
 let step=0;
 let operator;
+let result;
 
 
 function getFirstOperand() {
@@ -42,7 +46,14 @@ function getFirstOperand() {
                     console.log(operator);
                     console.log(step);    
                 }
-                else {operator=button.value;
+                else if (firstOperand.length==0) {
+                    window.alert("You havent enter a number to make calculation. Try again");
+                    clearResult();
+                  
+                }
+                
+                else {
+                operator=button.value;
                 step=2;
                 console.log(operator);
                 console.log(step)   ;
@@ -70,32 +81,32 @@ function getFirstOperand() {
                 console.log(result);
                 display.value=result;
             }
+            
             if (operator=="/")   {
                 if(secondOperand=="0"){
-                    display.value="NAN";
+                    window.alert("You can not divide by 0. The result is infinit. Try diffrent numbers");
                     clearResult();
                 }
-                
+
                 else{
                 result=Number(firstOperand)/Number(secondOperand);
+                step=2;
                 console.log(result);
                 display.value=result;}
             }
       }
 
     function clearResult(){
-
-        clearButton.addEventListener("click", () => {
             step=0;
             result=0;
-            display.value=0;
+            display.value="";
             firstOperand="";
             secondOperand="";
-
-        });
+            operator=null;
     }
 
     equals.addEventListener("click", getResult);
+    clearButton.addEventListener("click", clearResult);
 
 
 getFirstOperand();
