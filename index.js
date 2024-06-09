@@ -7,7 +7,6 @@ let pointButton=document.querySelector(".point");
 let plusMinusButton=document.querySelector(".plusMinus");
 
 
-
 let firstOperand="";
 let secondOperand="";
 let step=0;
@@ -65,46 +64,11 @@ function getFirstOperand() {
         });
     }
 
-/*
-    function pointOperandFunct(){
-     pointButton.addEventListener('click' , () =>{
-        if (!firstOperand.value.includes("."))  {
-
-            if(firstOperand=="") {
-              firstOperand= "0."+ firstOperand;
-              
-             }
-
-             else {
-            firstOperand= firstOperand + ".";
-            display.value=firstOperand;
-             } 
-        }
-
-        if (!secondOperand.includes("."))  {
-
-             if((secondOperand.length=="") && (step==2)){
-                secondOperand= "0."+ secondOperand;
-             }
-
-             else{
-                secondOperand= secondOperand + ".";
-                display.value=secondOperand;   
-             }
-            
-        }
-     });
-}
-
-*/
-
-
-
     
     /*  Equal button click */
     function getResult(){
           if(step==2 && secondOperand=="") {
-             result=Number(firstOperand);
+             result=parseFloat(firstOperand);
              display.value=result;    
           }
 
@@ -142,17 +106,17 @@ function getFirstOperand() {
     }
 
     function sum(value1, value2){
-        result=Number(value1)+Number(value2);
+        result=parseFloat(value1)+parseFloat(value2);
         display.value=result;
     }
 
     function deduction(value1,value2){
-          result=Number(value1)-Number(value2);
+          result=parseFloat(value1)-parseFloat(value2);
           display.value=result;
     }
 
     function product(value1,value2){
-        result=Number(value1)*Number(value2);
+        result=parseFloat(value1)*parseFloat(value2);
         display.value=result;
     }
 
@@ -163,7 +127,7 @@ function getFirstOperand() {
         }
 
         else{
-            result=Number(value1)/ Number(value2);
+            result=parseFloat(value1).toFixed(10)/ parseFloat(value2).toFixed(10);
             display.value=result;
         }
     }
@@ -175,8 +139,8 @@ function getFirstOperand() {
         }
 
         else{
-            result=(Number(value1)/Number(value2))*100;
-            display.value=result;
+            result=(Number(value1).toFixed(10)/Number(value2).toFixed(10))*100;
+            display.value=result.toFixed(10);
         }
     }
 
@@ -210,6 +174,41 @@ function getFirstOperand() {
     }
 
 
+    function pointOperandFunct(){
+        pointButton.addEventListener('click' , () =>{
+        if (step==0 || step==1){
+
+           if (!firstOperand.includes("."))  {
+               if(firstOperand=="") {
+                firstOperand= "0."+ firstOperand;  
+                display.value=firstOperand;
+               }
+
+                else {
+                 firstOperand= firstOperand + ".";
+                 display.value=firstOperand;
+               } 
+            }
+        }
+
+        if(step==2) {
+            if (!secondOperand.includes("."))  {
+             if(secondOperand==""){
+                secondOperand= "0."+ secondOperand;
+                display.value=secondOperand;
+             }
+
+             else{
+                secondOperand= secondOperand + ".";
+                display.value=secondOperand;   
+             }   
+           }
+       }
+     });
+    }
+
+
+
 
     equals.addEventListener("click", getResult);
     clearButton.addEventListener("click", clearResult);
@@ -220,3 +219,4 @@ getFirstOperand();
 operation();
 clearResult();
 plusMinusFunction();
+pointOperandFunct();
