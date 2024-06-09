@@ -3,6 +3,8 @@ const operatorButtons=document.querySelectorAll(".operator");
 const clearButton=document.querySelector(".clear");
 let display=document.querySelector("#display");
 let equals=document.querySelector("#equals");
+let pointButton=document.querySelector(".point");
+let plusMinusButton=document.querySelector(".plusMinus");
 
 
 
@@ -11,6 +13,7 @@ let secondOperand="";
 let step=0;
 let operator;
 let result;
+let pointOperand=true;
 
 
 function getFirstOperand() {
@@ -41,6 +44,7 @@ function getFirstOperand() {
                     getResult();
                     firstOperand=result;
                     secondOperand="";
+                    step=2;
                     operator=button.value;
                     console.log(operator);
                     console.log(step);    
@@ -60,6 +64,41 @@ function getFirstOperand() {
             });
         });
     }
+
+/*
+    function pointOperandFunct(){
+     pointButton.addEventListener('click' , () =>{
+        if (!firstOperand.value.includes("."))  {
+
+            if(firstOperand=="") {
+              firstOperand= "0."+ firstOperand;
+              
+             }
+
+             else {
+            firstOperand= firstOperand + ".";
+            display.value=firstOperand;
+             } 
+        }
+
+        if (!secondOperand.includes("."))  {
+
+             if((secondOperand.length=="") && (step==2)){
+                secondOperand= "0."+ secondOperand;
+             }
+
+             else{
+                secondOperand= secondOperand + ".";
+                display.value=secondOperand;   
+             }
+            
+        }
+     });
+}
+
+*/
+
+
 
     
     /*  Equal button click */
@@ -141,11 +180,43 @@ function getFirstOperand() {
         }
     }
 
+    function plusMinusFunction() {
+        plusMinusButton.addEventListener('click' , () =>{
+            if (step==0 || step==1) {
+
+                if(firstOperand.includes("-")){
+                    firstOperand=firstOperand.replace("-", "");
+                    display.value=firstOperand;
+                }
+
+                else{ 
+                firstOperand="-"+ firstOperand;
+                display.value=firstOperand;
+                }     
+            }
+  
+           else if(step==2){
+               if(secondOperand.includes("-")){
+                secondOperand=secondOperand.replace("-", "");
+                display.value=secondOperand;
+               }
+
+               else{ 
+                secondOperand="-"+secondOperand;
+                display.value=secondOperand;
+                }            
+            }
+        });
+    }
+
+
+
     equals.addEventListener("click", getResult);
     clearButton.addEventListener("click", clearResult);
+    
 
 
 getFirstOperand();
 operation();
 clearResult();
-
+plusMinusFunction();
