@@ -7,13 +7,11 @@ let pointButton=document.querySelector(".point");
 let plusMinusButton=document.querySelector(".plusMinus");
 
 
-
 let firstOperand="";
 let secondOperand="";
 let step=0;
 let operator;
 let result;
-let pointOperand=true;
 
 
 function getFirstOperand() {
@@ -24,14 +22,14 @@ function getFirstOperand() {
         step=1;   
         firstOperand+=button.value;
         display.value=firstOperand;
-        console.log(firstOperand);
+        displayMaxChar ();
         }
 
         else if(step==2){
          secondOperand+=button.value;
          display.value=secondOperand;
          console.log(secondOperand);
-
+         displayMaxChar ();
         }
         })
        });
@@ -112,6 +110,7 @@ function getFirstOperand() {
     function sum(value1, value2){
         result=parseFloat(value1)+parseFloat(value2);
         display.value=result;
+        
     }
 
     function deduction(value1,value2){
@@ -121,8 +120,8 @@ function getFirstOperand() {
 
     function product(value1,value2){
         result=parseFloat(value1)*parseFloat(value2);
-        display.value=result;
-    }
+            display.value=result;
+        }
 
     function division(value1,value2){
         if(value2==="0"){
@@ -210,22 +209,31 @@ function getFirstOperand() {
        }
      });
     }
+    
 
+    function displayMaxChar () {
+        if(firstOperand.length > 15) {
+         firstOperand=firstOperand.substring(0, firstOperand.length - 1);
+         console.log(firstOperand);
+         display.value=firstOperand; 
+         window.alert("You can not enter values more than 15 characters.")
+        }
 
-
-
-
+        if(secondOperand.length > 15) {
+            secondOperand=secondOperand.substring(0, secondOperand.length - 1);
+            console.log(secondOperand);
+            display.value=secondOperand;
+            window.alert("You can not enter values more than 15 characters.")  
+        }
+    }
 
 
     equals.addEventListener("click", getResult);
     clearButton.addEventListener("click", clearResult);
-
-
-    
-
 
 getFirstOperand();
 operation();
 clearResult();
 plusMinusFunction();
 pointOperandFunct();
+displayMaxChar();
