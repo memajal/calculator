@@ -7,6 +7,7 @@ let pointButton=document.querySelector(".point");
 let plusMinusButton=document.querySelector(".plusMinus");
 
 
+
 let firstOperand="";
 let secondOperand="";
 let step=0;
@@ -18,6 +19,7 @@ let pointOperand=true;
 function getFirstOperand() {
       numberButtons.forEach(button => {
       button.addEventListener('click' , () =>{
+
         if(step==0 || step==1){
         step=1;   
         firstOperand+=button.value;
@@ -33,6 +35,8 @@ function getFirstOperand() {
         }
         })
        });
+
+       
     }
     
 
@@ -210,8 +214,13 @@ function getFirstOperand() {
 
 
 
+
+
+
     equals.addEventListener("click", getResult);
     clearButton.addEventListener("click", clearResult);
+
+
     
 
 
