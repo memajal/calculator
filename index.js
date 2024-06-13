@@ -1,20 +1,20 @@
-const numberButtons=document.querySelectorAll(".number");
-const operatorButtons=document.querySelectorAll(".operator");
-const clearButton=document.querySelector(".clear");
-let display=document.querySelector("#display");
-let equals=document.querySelector("#equals");
-let pointButton=document.querySelector(".point");
-let plusMinusButton=document.querySelector(".plusMinus");
+const numberButtons=document.querySelectorAll(".number");   // all number buttons
+const operatorButtons=document.querySelectorAll(".operator");  // all operator buttons
+const clearButton=document.querySelector(".clear"); // C clear button
+let display=document.querySelector("#display");  // display text field
+let equals=document.querySelector("#equals");  // = button
+let pointButton=document.querySelector(".point"); // . button
+let plusMinusButton=document.querySelector(".plusMinus"); // +/- button
 
 
-let firstOperand="";
+let firstOperand="";   
 let secondOperand="";
-let step=0;
+let step=0; // step to find if user has enter the first or second operand
 let operator;
 let result;
 
-
-function getFirstOperand() {
+// function to save the first and second operan in the respective variables
+function getOperand() {
       numberButtons.forEach(button => {
       button.addEventListener('click' , () =>{
 
@@ -28,7 +28,6 @@ function getFirstOperand() {
         else if(step==2){
          secondOperand+=button.value;
          display.value=secondOperand;
-         console.log(secondOperand);
          displayMaxChar ();
         }
         })
@@ -37,43 +36,42 @@ function getFirstOperand() {
        
     }
     
-
+// function of user operator click 
     function operation() {
         operatorButtons.forEach(button => {
             button.addEventListener('click' , () =>{
+                // when the user has entered 2 operands and click another operator not the result, calculate the first 2 operands than continue
                 if(firstOperand.length!=0 && secondOperand.length!=0) {
                     getResult();
                     firstOperand=result;
                     secondOperand="";
                     step=2;
-                    operator=button.value;
-                    console.log(operator);
-                    console.log(step);    
+                    operator=button.value; 
                 }
+
                 else if (firstOperand.length==0) {
                     window.alert("You havent enter a number to make calculation. Try again");
                     clearResult();
                   
                 }
-                
+                // set the step 2 if the user has clicked an operand and than the operator
                 else {
                 operator=button.value;
                 step=2;
-                console.log(operator);
-                console.log(step)   ;
                 }
             });
         });
     }
 
     
-    /*  Equal button click */
+    /*  when user click the = button */
     function getResult(){
           if(step==2 && secondOperand=="") {
              result=parseFloat(firstOperand);
              display.value=result;    
           }
 
+      // when the user click the operator call the respective function based on the operators
         else if(step==2 && secondOperand!=""){
             if (operator=="+") {
               sum(firstOperand, secondOperand);
@@ -98,6 +96,8 @@ function getFirstOperand() {
             
     }
 
+
+    // clear all the operators and results when the user click clear 
     function clearResult(){
             step=0;
             result=0;
@@ -107,6 +107,7 @@ function getFirstOperand() {
             operator=null;
     }
 
+    // respective sum, deduction, product, division and percentage functions
     function sum(value1, value2){
         result=parseFloat(value1)+parseFloat(value2);
         display.value=result;
@@ -147,10 +148,12 @@ function getFirstOperand() {
         }
     }
 
+    // +/- added before a number button function
     function plusMinusFunction() {
         plusMinusButton.addEventListener('click' , () =>{
+            // if the user has entered the first operator add - befor it and when it clicks again remove it
             if (step==0 || step==1) {
-
+              
                 if(firstOperand.includes("-")){
                     firstOperand=firstOperand.replace("-", "");
                     display.value=firstOperand;
@@ -161,7 +164,8 @@ function getFirstOperand() {
                 display.value=firstOperand;
                 }     
             }
-  
+      
+     // if the user has entered the second operator add - befor it and when it clicks again remove it
            else if(step==2){
                if(secondOperand.includes("-")){
                 secondOperand=secondOperand.replace("-", "");
@@ -177,8 +181,10 @@ function getFirstOperand() {
     }
 
 
+    // . in a operand
     function pointOperandFunct(){
         pointButton.addEventListener('click' , () =>{
+            // add . only 1 time if the user has entered the first operand
         if (step==0 || step==1){
 
            if (!firstOperand.includes("."))  {
@@ -193,6 +199,8 @@ function getFirstOperand() {
                } 
             }
         }
+
+    // add . only 1 time if the user has entered the second operand
 
         if(step==2) {
             if (!secondOperand.includes("."))  {
@@ -210,7 +218,8 @@ function getFirstOperand() {
      });
     }
     
-
+   
+    // function to not allow the users to add first and second operand more than 15 chars
     function displayMaxChar () {
         if(firstOperand.length > 15) {
          firstOperand=firstOperand.substring(0, firstOperand.length - 1);
@@ -231,7 +240,7 @@ function getFirstOperand() {
     equals.addEventListener("click", getResult);
     clearButton.addEventListener("click", clearResult);
 
-getFirstOperand();
+getOperand();
 operation();
 clearResult();
 plusMinusFunction();
